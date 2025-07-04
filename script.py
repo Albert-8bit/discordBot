@@ -223,5 +223,16 @@ async def profile(ctx, member: discord.Member = None):
 
     await ctx.send(embed=embed)
 
+OWNER_ID = 1108816483976491089  # Replace with your Discord user ID
+
+@bot.command()
+async def factoryreset(ctx):
+    if ctx.author.id != OWNER_ID:
+        await ctx.send("❌ You don't have permission to do that.")
+        return
+
+    if os.path.exists(DATA_FILE):
+        os.remove(DATA_FILE)
+    await ctx.send("✅ Casino data has been reset to factory settings.")
 
 bot.run(os.environ["DISCORD_TOKEN"])
