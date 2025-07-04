@@ -97,6 +97,23 @@ def get_rank(user_data):
 @bot.event
 async def on_ready():
     print(f"🎰 SHITCOIN Casino is online as {bot.user}")
+    
+@bot.command()
+async def register(ctx):
+    user_id = str(ctx.author.id)
+    data = load_data()
+
+    if user_id in data:
+        await ctx.send(f"{ctx.author.mention}, you are already registered.")
+        return
+
+    data[user_id] = {
+        "balance": 100,
+        "total_wins": 0,
+        "total_losses": 0
+    }
+    save_data(data)
+    await ctx.send(f"{ctx.author.mention}, you have been registered with 100 SHITCOINI!")
 
 @bot.command()
 async def balance(ctx):
